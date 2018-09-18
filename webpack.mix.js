@@ -17,4 +17,4 @@ mix.js('resources/js/app.js', 'public/js')
 mix.js('resources/js/commeeting.js', 'public/js')
    .sass('resources/sass/commeeting.scss', 'public/css');
    
-mix.js('resources/js/interface.js', 'public/js');
+mix.sass('resources/sass/profile.scss', 'public/css');

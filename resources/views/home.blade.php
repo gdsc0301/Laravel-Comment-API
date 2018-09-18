@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<link href="{{ asset('css/commeeting.css') }}" rel="stylesheet">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -16,10 +17,10 @@
                       <div class='comment-container'>
                           <div class='comment-content'>
                               <div class='user-image'>
-                                <img src='{{asset("avatar/$comment->author_id".".png")}}'>
+                                <img src='{{asset("avatar/".$comment->author->id.".png")}}'>
                               </div>
                               <div class='comment' id='{{$comment->id}}'>
-                                <div class='comment name'>{{$comment->author->name}}</div>
+                                <div class='comment name'><a href='{{url("/profile/id=".$comment->author->id)}}'>{{$comment->author->name}}</a></div>
                                 {{$comment->current_text}}
                               </div>
                               <div class="comment-update hidden" id="{{$comment->id}}">

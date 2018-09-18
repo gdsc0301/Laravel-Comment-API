@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\User;
 use App\Comment;
+use App\Policies\UserPolicy;
 use App\Policies\CommentPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -17,7 +18,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
-		Comment::class => CommentPolicy::class,
+		      Comment::class => CommentPolicy::class,
+          User::class => UserPolicy::class,
     ];
 
     /**
@@ -28,7 +30,12 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
+        Gate::before(function ($user) {
+            if ($user->hasRole('Admin')) {
+                return true;
+            }
+        });
         Gate::resource('comment', 'App\Policies\CommentPolicy');
+        Gate::resource('user', 'App\Policies\UserPolicy');
     }
 }

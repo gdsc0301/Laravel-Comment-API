@@ -31,4 +31,13 @@ class User extends Authenticatable
     function comments(){
       return $this->belongsTo('App\Comment');
     }
+
+    function roles(){
+      return $this->belongsTo('App\Role');
+    }
+
+    public function hasRole($role)
+    {
+      return null !== $this->roles()->where('name', $role)->first();
+    }
 }

@@ -1,5 +1,5 @@
 <?php
-
+use App\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 |-----------------------|
 */
 
+//Comments
 //Send a new comment, the text is sent by 'data' in AJAX.
 Route::post('/comments/add', array('uses' => 'CommentController@NewComment'));
 //Returns all the comments in JSON format.
@@ -35,6 +36,15 @@ Route::put('/comment/id={id}', array('uses' => 'CommentController@UpdateComment'
 //but the 'id' is sent by 'data' in 'post', for security purposes.
 Route::post('/comment/delete', 'CommentController@DeleteComment');
 
+//UserProfile
+Route::get('/profile/id={id}', function($id){
+  $user = User::find($id);
+  return view('user.profile')->with('user', $user);
+});
+Route::post('/profile/avatar-update', array('uses' => 'UserController@AvatarUpdate'));
+Route::post('/profile/name-update', array('uses' => 'UserController@NameUpdate'));
+Route::post('/profile/email-update', array('uses' => 'UserController@EmailUpdate'));
+Route::post('/profile/password-update', array('uses' => 'UserController@PasswordUpdate'));
 
 /*
 |---------------------------|
