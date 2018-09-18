@@ -1,0 +1,142 @@
+.hidden {
+  display: none;
+}
+
+.textarea-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-bottom: 12px;
+}
+
+.textarea-container label {
+  color: white;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.post#post-textarea {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  resize: vertical;
+}
+
+.post#post-submit {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.comment-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background-color: #1F3740;
+  padding: 12px;
+  border-radius: 7px;
+  margin-bottom: 12px;
+}
+
+.comment-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.button {
+  display: block;
+  color: white;
+  font-size: .5em;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+.user-image {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+}
+
+.user-image img {
+  width: inherit;
+  height: inherit;
+  border-radius: 25px;
+}
+
+div.comment-update {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 12px;
+}
+
+div.comment-update label {
+  color: white;
+  font-weight: bold;
+}
+
+.comment-update.hidden {
+  display: none;
+}
+
+.comment {
+  color: white;
+  display: inline-block;
+}
+
+.comment .content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.comment .name {
+  color: coral;
+}
+
+.comment.status {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin-top: 1.5em;
+}
+
+.comment.status {
+  font-size: .5em;
+  color: gray;
+}
+
+.comment.status .creation-date,
+.comment.status .edited {
+  margin-right: 1em;
+}
+
