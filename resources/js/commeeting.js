@@ -3,6 +3,8 @@
 //Target: BetLabs
 
 //Request the comments in JSON format.
+
+
 function GetComments(){
   $.ajax({
     method: 'get',
@@ -12,8 +14,6 @@ function GetComments(){
       _token: '{!! csrf_token() !!}',
     },
     success:function(obj){
-      //Returns all the comments in JSON format.
-      //Or false in case of non authorization.
       return obj;
     },
     error:function(err){
@@ -41,6 +41,7 @@ function SendComment(comment_text){
     success:function(obj){
       //Returns the sent comment.
       //Or false in case of non authorization.
+      location.reload();
       return obj;
     },
     error:function(err){
@@ -61,7 +62,7 @@ function UpdateComment(commentID, comment_text){
       url: '/comment/id='+commentID,
       data: updateData,
       success:function(obj){
-        //Returns the updated comment.
+        location.reload();
         return obj;
       },
       error:function(err){
@@ -80,7 +81,7 @@ function DeleteComment(commentID){
     url: '/comment/delete',
     data: {comment_id:commentID},
     success:function(obj){
-      //Returns the deleted comment.
+      location.reload();
       return obj;
     },
     error:function(err){
@@ -96,7 +97,6 @@ function DeleteComment(commentID){
 $('#post-submit').click(function(){
     var text = $('#post-textarea').val();
     SendComment(text);
-    GetComments();
     $('#post-textarea').val('');
 });
 
@@ -106,7 +106,6 @@ $('input.comment-update').click(function(){
 
   $(this).parent().toggleClass('hidden');
   UpdateComment(id, text);
-  GetComments();
 });
 
 $('.edit.button').click(function(){

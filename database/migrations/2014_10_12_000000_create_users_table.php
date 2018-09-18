@@ -19,19 +19,17 @@ class CreateUsersTable extends Migration
        *
        * Create the 'users' table.
        */
-        Schem
-        Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            //Emails are unique.
-            $table->string('email', 32)->unique();
-            //Avatars can be null
-            $table->binary('avatar')->nullable(true);
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-        });
+       Schema::create('users', function (Blueprint $table) {
+         //Heres the Primary Key,
+         //used by the 'comments' table.
+         $table->increments('id');
+         $table->string('name');
+         $table->string('email', 32)->unique();
+         $table->timestamp('email_verified_at')->nullable();
+         $table->string('password');
+         $table->rememberToken();
+         $table->timestamps();
+       });
     }
 
     /**
