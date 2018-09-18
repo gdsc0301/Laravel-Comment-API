@@ -18,7 +18,7 @@
       <form class="input-group mb-3" novalidate>
         <div class="custom-file">
           <input disabled type="file" class="custom-file-input" name='image' accept=".png" id="image-input" aria-describedby="image-input-label">
-          <label class="custom-file-label" for="image-input">under maintenance...</label>
+          <label class="custom-file-label" for="image-input">Avatar update under maintenance...</label>
         </div>
         <div class="input-group-append">
           <button class="btn btn-primary" type="button" id="image-submit">Upload</button>

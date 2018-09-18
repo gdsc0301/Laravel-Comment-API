@@ -63,13 +63,6 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
-		
-		'public' => [
-            'driver' => 'public',
-			'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/public',
-            'visibility' => 'public',
-        ],
 
     ],
 
