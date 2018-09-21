@@ -35,6 +35,7 @@ class AuthServiceProvider extends ServiceProvider
                 return true;
             }
         });
+        //Creates the functions that rules the apllication
         Gate::resource('comment', 'App\Policies\CommentPolicy');
         Gate::resource('user', 'App\Policies\UserPolicy');
     }

@@ -36,18 +36,23 @@ Route::put('/comment/id={id}', array('uses' => 'CommentController@UpdateComment'
 //but the 'id' is sent by 'data' in 'post', for security purposes.
 Route::post('/comment/delete', 'CommentController@DeleteComment');
 
-//UserProfile
+//User
+//Get an user from his ID.
 Route::get('/profile/id={id}', function($id){
   $user = User::find($id);
   return view('user.profile')->with('user', $user);
 });
-
-//
+//Send the data to create a new user
 Route::post('/profile/add', array('uses' => 'UserController@Create'));
+//Send the id to delete an user
 Route::post('/profile/delete', array('uses' => 'UserController@Delete'));
+//Send the data to update the user avatar
 Route::post('/profile/avatar-update', array('uses' => 'UserController@AvatarUpdate'));
+//Send the data to update the user name
 Route::post('/profile/name-update', array('uses' => 'UserController@NameUpdate'));
+//Send the data to update the user email
 Route::post('/profile/email-update', array('uses' => 'UserController@EmailUpdate'));
+//Send the data to update the user password
 Route::post('/profile/password-update', array('uses' => 'UserController@PasswordUpdate'));
 
 /*

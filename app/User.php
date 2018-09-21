@@ -28,14 +28,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    //Which comments belongs to this user
     function comments(){
       return $this->belongsTo('App\Comment');
     }
-
+    //Which roles belongs to this user
     function roles(){
       return $this->belongsTo('App\Role');
     }
 
+    //Do this user has x role?
     public function hasRole($role)
     {
       return null !== $this->roles()->where('name', $role)->first();
