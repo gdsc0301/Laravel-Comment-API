@@ -2,16 +2,14 @@
 
 @section('content')
 
-<div class="container w-auto bg-dark d-flex flex-row p-3 rounded flex-wrap">
-  <div>
+<div class="container w-100 bg-dark d-flex flex-column p-3 rounded">
+  <div class="d-flex flex-row">
     <img src="{{asset('avatar/'.$user->id.'.png')}}" class="img-thubnail rounded mr-3" style="width: 128px;height: 128px">
-  </div>
-  <div class="d-flex flex-row flex-wrap mt-3">
     <h2 class="title text-white">
       {{$user->name}}
     <small class="text-muted">{{$user->email}}</small></h2>
   </div>
-  <div class="d-flex flex-column justify-content-start flex-wrap">
+  <div class="d-flex w-100 flex-column justify-content-start flex-wrap">
     @if(Gate::allows('user.update', $user))
     <div class="container-fluid bg-light d-flex flex-column rounded mt-3 p-3">
       <h5> Update your profile</h5>

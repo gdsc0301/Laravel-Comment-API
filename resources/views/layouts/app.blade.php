@@ -80,7 +80,7 @@
         <main class="py-4">
             @yield('content')
         </main>
-        <script type="text/javascript" src="http://localhost/laravel/public/js/commeeting.js"></script>
+        <script type="text/javascript" src="{{asset('js/commeeting.js')}}"></script>
     </div>
 </body>
 </html>
