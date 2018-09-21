@@ -41,6 +41,10 @@ Route::get('/profile/id={id}', function($id){
   $user = User::find($id);
   return view('user.profile')->with('user', $user);
 });
+
+//
+Route::post('/profile/add', array('uses' => 'UserController@Create'));
+Route::post('/profile/delete', array('uses' => 'UserController@Delete'));
 Route::post('/profile/avatar-update', array('uses' => 'UserController@AvatarUpdate'));
 Route::post('/profile/name-update', array('uses' => 'UserController@NameUpdate'));
 Route::post('/profile/email-update', array('uses' => 'UserController@EmailUpdate'));
