@@ -90,6 +90,9 @@ Se você estiver logado na conta daquele perfil, será habilitado alguns menus p
  * Nome
  * Email
  * Senha
+ 
+Ás vezes é necessário atualizar a página novamente, para que as atualizações na página sejam feitas, no banco de dados já está alterado,
+mas não aparece na página logo após a mudança, é só apertar F5 que atualiza.
 
 ## Considerações finais
 A questão da imagem de perfil do usuário é complicada,
