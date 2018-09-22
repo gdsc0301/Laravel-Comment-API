@@ -63,7 +63,7 @@
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             method: 'post',
-            url: '/profile/name-update',
+            url: '/laravel/public/profile/name-update',
             data: update,
             dataType: 'json',
             success:function(){
@@ -83,7 +83,7 @@
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             method: 'post',
-            url: '/profile/email-update',
+            url: '/laravel/public/profile/email-update',
             data: update,
             dataType: 'json',
             success:function(){
@@ -110,7 +110,7 @@
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             method: 'post',
-            url: '/profile/password-update',
+            url: '/laravel/public/profile/password-update',
             data: update,
             dataType: 'json',
             success:function(){

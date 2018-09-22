@@ -14,8 +14,8 @@
                 <div class="card-header">Dashboard</div>
                 @if(count($comments) > 0)
                     @foreach($comments as $comment)
-                      <div class='comment-container'>
-                          <div class='comment-content'>
+                      <div class='comment-container container-fluid'>
+                          <div class='comment-content w-100'>
                               <div class='user-image'>
                                 <img src='{{asset("avatar/".$comment->author->id.".png")}}'>
                               </div>
@@ -23,7 +23,7 @@
                                 <div class='comment name'><a href='{{url("/profile/id=".$comment->author->id)}}'>{{$comment->author->name}}</a></div>
                                 {{$comment->current_text}}
                               </div>
-                              <div class="comment-update hidden" id="{{$comment->id}}">
+                              <div class="comment-update container-fluid hidden" id="{{$comment->id}}">
                                   <label>Update your comment</label>
                                   <textarea class="comment-textarea"></textarea>
                                   <input class="comment-update" type="submit">

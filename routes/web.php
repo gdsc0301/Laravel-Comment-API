@@ -27,7 +27,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Comments
 //Send a new comment, the text is sent by 'data' in AJAX.
-Route::post('/comments/add', array('uses' => 'CommentController@NewComment'));
+Route::post('comments/add', array('uses' => 'CommentController@NewComment'));
 //Returns all the comments in JSON format.
 Route::get('/comments', 'CommentController@GetComments');
 //Update a comment whith the follow 'id', the text is send by 'data' in AJAX.
