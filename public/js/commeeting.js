@@ -8,7 +8,7 @@
 function GetComments() {
   $.ajax({
     method: 'get',
-    url: '/laravel/public/comments',
+    url: 'comments',
     data: {
       //Laravel CSRF token for authorization.
       _token: '{!! csrf_token() !!}'
@@ -35,7 +35,7 @@ function SendComment(comment_text) {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
     method: 'post',
-    url: '/laravel/public/comments/add',
+    url: 'comments/add',
     data: objectComment,
     dataType: 'json',
     success: function success(obj) {
@@ -59,7 +59,7 @@ function UpdateComment(commentID, comment_text) {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
     method: 'put',
-    url: '/laravel/public/comment/id=' + commentID,
+    url: 'comment/id=' + commentID,
     data: updateData,
     success: function success(obj) {
       location.reload();
@@ -78,7 +78,7 @@ function DeleteComment(commentID) {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
     method: 'post',
-    url: '/laravel/public/comment/delete',
+    url: 'comment/delete',
     data: { comment_id: commentID },
     success: function success(obj) {
       location.reload();

@@ -4,7 +4,7 @@
 
 <div class="container w-100 bg-dark d-flex flex-column p-3 rounded">
   <div class="d-flex flex-row">
-    <img src="{{asset('avatar/'.$user->id.'.png')}}" class="img-thubnail rounded mr-3" style="width: 128px;height: 128px">
+    <img src="{{asset('../storage/app/avatar/'.Auth::user()->avatar)}}" class="img-thubnail rounded mr-3" style="width: 128px;height: 128px">
     <h2 class="title text-white">
       {{$user->name}}
     <small class="text-muted">{{$user->email}}</small></h2>
@@ -13,13 +13,16 @@
     @if(Gate::allows('user.update', $user))
     <div class="container-fluid bg-light d-flex flex-column rounded mt-3 p-3">
       <h5> Update your profile</h5>
-      <form class="input-group mb-3" novalidate>
+
+      <!-- AVATAR -->
+      <form enctype="multipart/form-data" action="avatar-update" method="post" class="input-group avatar-form mb-3">
         <div class="custom-file">
-          <input disabled type="file" class="custom-file-input" name='image' accept=".png" id="image-input" aria-describedby="image-input-label">
-          <label class="custom-file-label" for="image-input">Avatar update under maintenance...</label>
+          <input type="file" name='avatar' accept=".png, .jpg" id="image-input" required>
+          <label class="custom-file-label" for="image-input">Avatar File</label>
         </div>
         <div class="input-group-append">
-          <button class="btn btn-primary" type="button" id="image-submit">Upload</button>
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <button class="btn btn-primary" type="submit" id="image-submit">Upload</button>
         </div>
       </form>
 
@@ -31,6 +34,9 @@
             <button type="button" id="name-submit" class="btn btn-primary btn-block">Update Name</button>
           </div>
         </div>
+        <small class="empty-name text-danger d-none">
+          Your name should have atleast 3 characters.
+        </small>
       </form>
 
       <!-- EMAIL -->
@@ -38,7 +44,7 @@
         <div class="input-group">
           <input type="email" id="email-update" class="form-control" placeholder="Your new email" required>
           <div class="input-group-append">
-            <button type="button" id="email-submit" class="btn btn-primary">Update Email</button>
+            <button type="submit" id="email-submit" class="btn btn-primary">Update Email</button>
           </div>
         </div>
         <small class="email exists text-danger d-none">
@@ -49,36 +55,45 @@
       <!-- PASSWORD -->
       <form>
         <div class="input-group" >
-          <input type="password" id="password-update" class="form-control" placeholder="Your new Password" required>
-          <input type="password" id="password-confirm" class="form-control" placeholder="Password confirm" required>
+          <input type="password" id="password-update" class="form-control pass" placeholder="Your new Password" required>
+          <input type="password" id="password-confirm" class="form-control pass" placeholder="Password confirm" required>
           <div class="input-group-append">
             <button type="button" id="password-submit" class="btn btn-primary btn-block">Update Password</button>
           </div>
         </div>
-        <small class="password no-confirmated d-none">
-
+        <small class="password-unconfirmed text-danger d-none">
+          Password confirmation doesn't match.
+        </small>
+        <small class="password-empty text-danger d-none">
+          Fill in both fields. Equals preferably.
+        </small>
+        <small class="password-small text-danger d-none">
+          Password must have atleast 6 chatacters.
         </small>
       </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+
     <script type="text/javascript">
       $(document).ready(function(){
 
+        //NAME
         $('#name-submit').click(function(event){
-          console.log(event);
+          if($('#name-update').val().length < 3){
+            console.log($('#name-update').val().length);
+            $('.empty-name').removeClass('d-none');
+            return false;
+          }
           var newName = $('#name-update').val();
           var update = {
             id : {{$user->id}},
             name: newName
           };
-          console.log(update);
           $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             method: 'post',
-            url: '/laravel/public/profile/name-update',
+            url: 'name-update',
             data: update,
             dataType: 'json',
             success:function(obj){
@@ -91,21 +106,19 @@
           });
         });
 
-        $('#email-submit').click(function(event){
-
+        $('.email-form').on('submit', function(e){
+          e.preventDefault();
           var newEmail = $('#email-update').val();
           var update = {
             id : {{$user->id}},
             email: newEmail
           };
-
-
           $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             method: 'post',
-            url: '/laravel/public/profile/email-update',
+            url: 'email-update',
             data: update,
             dataType: 'json',
             success:function(obj){
@@ -119,13 +132,22 @@
           });
         });
 
-
-        $('#password-submit').click(function(){
+        //PASSWORD
+        $('#password-submit').click(function(event){
           var newPassword = $('#password-update').val();
           var passConfirm = $('#password-confirm').val();
 
           if(newPassword != passConfirm){
-            $(event.target).addClass('is-invalid');
+            $(".password-unconfirmed").removeClass('d-none');
+            $("input.pass").addClass("is-invalid");
+            return false;
+          }else if(newPassword == '' || passConfirm == ''){
+            $(".password-empty").removeClass('d-none');
+            $("input.pass").addClass("is-invalid");
+            return false;
+          }else if(newPassword.length < 6 || passConfirm.length < 6){
+            $(".password-small").removeClass('d-none');
+            $("input.pass").addClass("is-invalid");
             return false;
           }
 
@@ -133,16 +155,16 @@
             id : {{$user->id}},
             password: newPassword
           };
-          console.log(update);
+
           $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             method: 'post',
-            url: '/laravel/public/profile/password-update',
+            url: 'password-update',
             data: update,
             dataType: 'json',
-            success:function(){
+            success:function(obj){
               if(obj == 401){
                 $(event.target).addClass('is-invalid');
               }else{
@@ -151,7 +173,6 @@
             }
           });
         });
-
       });
     </script>
     @endif

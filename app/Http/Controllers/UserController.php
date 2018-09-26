@@ -39,14 +39,23 @@ class UserController extends Controller
 
 	//Storage the image to use as avatar
   public function AvatarUpdate(Request $request){
-    $user = User::find($request->id);
-    //Authorization verification
-		if(Gate::allows('user.update', $user)){
-			Storage::put('avatar/'.$user->id.'.png', $request);
-			return 200;
-		}else{
-			return 401;
-		}
+    if($request->hasFile('avatar')){
+      $user = Auth::user();
+      //Authorization verification
+  		if(Gate::allows('user.update', $user)){
+        $avatar = $request->file('avatar');
+        $filename = $user->id.'.'.$avatar->getClientOriginalExtension();
+
+  			Storage::putFileAs('avatar', $avatar, $filename);
+        $user->avatar = $filename;
+        $user->save();
+        return view('user.profile', ['user' => $user]);
+  		}else{
+  			return 401;
+  		}
+    }else{
+      return false;
+    }
   }
   //Update de User name, with the text sended by 'post'.
   public function NameUpdate(Request $request){

@@ -17,7 +17,7 @@
                       <div class='comment-container container-fluid'>
                           <div class='comment-content w-100'>
                               <div class='user-image'>
-                                <img src='{{asset("avatar/".$comment->author->id.".png")}}'>
+                                <img src='{{asset("../storage/app/avatar/".$comment->author->avatar)}}'>
                               </div>
                               <div class='comment' id='{{$comment->id}}'>
                                 <div class='comment name'><a href='{{url("/profile/id=".$comment->author->id)}}'>{{$comment->author->name}}</a></div>
