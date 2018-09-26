@@ -11,7 +11,6 @@ Sumário
    - Como funciona?
    - Comentários
    - Usuários
- - Considerações finais.
 
 
  ## INTRODUÇÃO
@@ -67,39 +66,27 @@ completo da aplicação, "laravel/public".
 
 ## Como funciona?
 
-É muito simples, ao entrar no link "http://localhost/laravel/public" verá a tela básica do Laravel, onde haverá os botões 
+É muito simples, ao entrar no link "http://localhost/pasta-que-clonou-o-rep/public" verá a tela básica do Laravel, onde haverá os botões 
 "Login" e "Register" no canto superior esquerdo.
 Clique no botão "Register" faça seu registro normalmente.
 
 ## Comentários
 
-Após dar "submit" nos dados, será redirecionado para o "dashboard", onde haverá um local para digitar seu comentário.
+Após se registrar, será redirecionado para o "dashboard", onde haverá um local para digitar seu comentário.
  - Envie um comentário qualquer.
 Após clicar em "Enviar" verá o comentário abaixo, e todas as vezes seguintes que acessar.
 Todos os comentários são exibidos, inclusive de outros usuários. No entando, só poderão ser editados ou deletados pelos
 autores dos mesmos.
-Ao lado de todos os comentários criados por você, será exibido dois "botões": edit e drop.
- - edit, habilita uma caixa de texto para que o comentário seja exibido.
+Ao lado de todos os comentários criados por você, serão exibidos dois "botões", edit e drop.
+ - edit, habilita uma caixa de texto para que o comentário seja editado.
  - drop, deleta o comentário.
  
 ## Usuários
 
 Se quiser pode clicar no nome do Autor do comentário, que estará em azul. Ao clicar exibirá uma página de perfil simples.
 Se você estiver logado na conta daquele perfil, será habilitado alguns menus para alteração de seus dados, como
- * Avatar (não funcionando)
+ * Avatar
  * Nome
  * Email
  * Senha
- 
-Ás vezes é necessário atualizar a página novamente, para que as atualizações na página sejam feitas, no banco de dados já está alterado,
-mas não aparece na página logo após a mudança, é só apertar F5 que atualiza.
 
-## Considerações finais
-A questão da imagem de perfil do usuário é complicada,
-as imagens estão armazenadas na pasta '/public/avatar', e são obtidas usando
-'asset("avatar/id-do-usuário.png"), ou seja, apenas se houver uma imagem
-no diretório nomeada com o id-do-usuário.png (sim em .png) ela é exibida normalmente
-nos comentários que pertencem aos seus respectivos autores.
-Para que o usuário pudesse enviar uma foto eu precisaria de um pouco mais
-de tempo de estudo, e não quero correr o risco, porque aliás já demorei muito mais
-que devia para entregar este projeto.
