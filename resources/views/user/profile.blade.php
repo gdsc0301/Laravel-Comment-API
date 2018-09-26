@@ -22,36 +22,51 @@
           <button class="btn btn-primary" type="button" id="image-submit">Upload</button>
         </div>
       </form>
-      <form novalidate>
+
+      <!-- NAME -->
+      <form>
         <div class="input-group" >
           <input type="text" id="name-update" name="name_update" class="form-control" placeholder="Your new name" required>
           <div class="input-group-append">
-            <button type="submit" id="name-submit" class="btn btn-primary btn-block">Update Name</button>
+            <button type="button" id="name-submit" class="btn btn-primary btn-block">Update Name</button>
           </div>
         </div>
       </form>
-      <form novalidate>
+
+      <!-- EMAIL -->
+      <form class="email-form">
         <div class="input-group">
-          <input type="email" id="email-update" class="form-control" placeholder="Your new email">
+          <input type="email" id="email-update" class="form-control" placeholder="Your new email" required>
           <div class="input-group-append">
-            <button type="submit" id="email-submit" class="btn btn-primary btn-block">Update Email</button>
+            <button type="button" id="email-submit" class="btn btn-primary">Update Email</button>
           </div>
         </div>
+        <small class="email exists text-danger d-none">
+          This email is already registered. Try other!
+        </small>
       </form>
-      <form novalidate>
+
+      <!-- PASSWORD -->
+      <form>
         <div class="input-group" >
-          <input type="password" id="password-update" class="form-control" placeholder="Your new Password">
-          <input type="password" id="password-confirm" class="form-control" placeholder="Password confirm">
+          <input type="password" id="password-update" class="form-control" placeholder="Your new Password" required>
+          <input type="password" id="password-confirm" class="form-control" placeholder="Password confirm" required>
           <div class="input-group-append">
-            <button type="submit" id="password-submit" class="btn btn-primary btn-block">Update Password</button>
+            <button type="button" id="password-submit" class="btn btn-primary btn-block">Update Password</button>
           </div>
         </div>
+        <small class="password no-confirmated d-none">
+
+        </small>
       </form>
     </div>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
 
         $('#name-submit').click(function(event){
+          console.log(event);
           var newName = $('#name-update').val();
           var update = {
             id : {{$user->id}},
@@ -66,18 +81,25 @@
             url: '/laravel/public/profile/name-update',
             data: update,
             dataType: 'json',
-            success:function(){
+            success:function(obj){
+              if(obj == 401){
+                $("#name-update").addClass('is-invalid');
+              }else{
+                location.reload();
+              }
             }
           });
         });
 
-        $('#email-submit').click(function(){
+        $('#email-submit').click(function(event){
+
           var newEmail = $('#email-update').val();
           var update = {
             id : {{$user->id}},
             email: newEmail
           };
-          console.log(update);
+
+
           $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -86,7 +108,13 @@
             url: '/laravel/public/profile/email-update',
             data: update,
             dataType: 'json',
-            success:function(){
+            success:function(obj){
+              if(obj == 403){
+                $('#email-update').addClass("is-invalid");
+                $('.email.exists').removeClass('d-none');
+              }else{
+                location.reload();
+              }
             }
           });
         });
@@ -97,6 +125,7 @@
           var passConfirm = $('#password-confirm').val();
 
           if(newPassword != passConfirm){
+            $(event.target).addClass('is-invalid');
             return false;
           }
 
@@ -114,6 +143,11 @@
             data: update,
             dataType: 'json',
             success:function(){
+              if(obj == 401){
+                $(event.target).addClass('is-invalid');
+              }else{
+                location.reload();
+              }
             }
           });
         });

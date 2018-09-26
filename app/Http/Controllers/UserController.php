@@ -32,6 +32,8 @@ class UserController extends Controller
       $backup = $user;
       $user->delete();
       return $backup;
+    }else{
+      return 401;
     }
   }
 
@@ -41,9 +43,9 @@ class UserController extends Controller
     //Authorization verification
 		if(Gate::allows('user.update', $user)){
 			Storage::put('avatar/'.$user->id.'.png', $request);
-			return true;
+			return 200;
 		}else{
-			return false;
+			return 401;
 		}
   }
   //Update de User name, with the text sended by 'post'.
@@ -53,8 +55,9 @@ class UserController extends Controller
         //Saving the user requested with the new name.
         $user->name = $request->name;
         $user->save();
+        return $user;
     }else{
-      return false;
+      return 401;
     }
   }
 
@@ -63,10 +66,14 @@ class UserController extends Controller
     $user = User::find($request->id);
     if(Gate::allows('user.update', $user)){
       //Saving the user requested with the new email.
+      if(User::where('email', $request->email)->count() > 0){
+        return 403;
+      }
       $user->email = $request->email;
       $user->save();
+      return $user;
     }else{
-      return false;
+      return 401;
     }
   }
 
@@ -77,8 +84,9 @@ class UserController extends Controller
       //Saving the user requested with the new password.
       $user->password = Hash::make($request->password);
       $user->save();
+      return $user;
 		}else{
-		  return false;
+		  return 401;
 		}
   }
 

@@ -27,7 +27,7 @@ class HomeController extends Controller
     {
       // When this view is returned, it goes with
       //all the comments created before.
-      $comments = Comment::all()->sortBy('created_at');
+      $comments = Comment::all()->sortByDesc('created_at');
 
       return View::make('home')->with('comments',$comments);
     }
