@@ -94,10 +94,17 @@ function DeleteComment(commentID){
 //
 //
 //PERSONAL PAGE EVENTS
-$('#post-submit').click(function(){
-    var text = $('#post-textarea').val();
+$('form.textarea-container').on('submit', function(e){
+  e.preventDefault();
+  var text = $('#post-textarea').val();
+  console.log(text.length);
+  /*if(text.length < 3){
+    $('.empty-comment').removeClass('d-none');
+    return false;
+  }else if(text.length >= 3){
     SendComment(text);
     $('#post-textarea').val('');
+  }*/
 });
 
 $('input.comment-update').click(function(){

@@ -93,7 +93,7 @@ function DeleteComment(commentID) {
 //
 //
 //PERSONAL PAGE EVENTS
-$('#post-submit').click(function () {
+$('form.textarea-container').on('submit', function(e){
   var text = $('#post-textarea').val();
   SendComment(text);
   $('#post-textarea').val('');

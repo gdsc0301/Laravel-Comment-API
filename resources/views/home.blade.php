@@ -5,11 +5,12 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="textarea-container">
+            <form class="textarea-container">
                 <label style="color: black">Your comment!</label>
-                <textarea class="post" maxlength="15000" id="post-textarea"></textarea>
-                <input class="post" id='post-submit' type="submit" onclick="">
-            </div>
+                <textarea class="post form-control" name="comment" minlength="3" maxlength="10000" id="post-textarea" required></textarea>
+                <input class="post" id='post-submit' type="submit" value="Enviar">
+            </form>
+            <small class="empty-comment d-none">Comment must have atleast 3 characters</small>
             <div class="card">
                 <div class="card-header">Dashboard</div>
                 @if(count($comments) > 0)
